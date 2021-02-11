@@ -34,18 +34,28 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-//Creating cookie message
-const message = document.createElement('div');
-message.classList.add('cookie-message');
-message.innerHTML =
-  'We use cookies for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>';
+// //Creating cookie message
+// const message = document.createElement('div');
+// message.classList.add('cookie-message');
+// message.innerHTML =
+//   'We use cookies for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>';
 
-//inserting cookie message
-header.append(message);
+// //inserting cookie message
+// header.append(message);
 
-//Deleting cookie btn element
-document
-  .querySelector('.btn--close-cookie')
-  .addEventListener('click', function () {
-    message.remove();
-  });
+// //Deleting cookie btn element
+// document
+//   .querySelector('.btn--close-cookie')
+//   .addEventListener('click', function () {
+//     message.remove();
+//   });
+
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (e) {
+  const s1coords = section1.getBoundingClientRect();
+
+  //smooth scrolling: more modern technique. only works in modern browsers
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
