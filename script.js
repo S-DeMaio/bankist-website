@@ -1,16 +1,19 @@
 'use strict';
 
-///////////////////////////////////////
-// Modal window
-
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+const s1coords = section1.getBoundingClientRect();
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const nav = document.querySelector('.nav');
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
 
-//Selecting DOM section elements
-const header = document.querySelector('.header');
-const footer = document.querySelector('.footer');
+///////////////////////////////////////
+// Modal window
 
 const openModal = function (e) {
   e.preventDefault();
@@ -34,23 +37,11 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-// //Creating cookie message
-// const message = document.createElement('div');
-// message.classList.add('cookie-message');
-// message.innerHTML =
-//   'We use cookies for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>';
+// //scrolling
 
-// //inserting cookie message
-// header.append(message);
+//////////////////////////////////////////////
+//Page Navigation
 
-// //Deleting cookie btn element
-// document
-//   .querySelector('.btn--close-cookie')
-//   .addEventListener('click', function () {
-//     message.remove();
-//   });
-
-//Page navigation / Event Delegation
 document.querySelector('.nav__links').addEventListener('click', function (e) {
   // console.log(e.target); //e.target allows us to determine what element originated the event.
 
@@ -63,20 +54,14 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
   }
 });
 
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
+const header = document.querySelector('.header');
+const footer = document.querySelector('.footer');
+const allSections = document.querySelectorAll('.section');
 
-btnScrollTo.addEventListener('click', function (e) {
-  const s1coords = section1.getBoundingClientRect();
-
-  //smooth scrolling: more modern technique. only works in modern browsers
-  section1.scrollIntoView({ behavior: 'smooth' });
-});
+document.getElementById('section--1');
+const allButtons = document.getElementsByTagName('button');
 
 // Building a Tabbed Component
-const tabs = document.querySelectorAll('.operations__tab');
-const tabsContainer = document.querySelector('.operations__tab-container');
-const tabsContent = document.querySelectorAll('.operations__content');
 
 tabsContainer.addEventListener('click', function (e) {
   //Matching
@@ -95,3 +80,21 @@ tabsContainer.addEventListener('click', function (e) {
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active');
 });
+
+//Menu fade animation, with event delegation
+//finding common parent element
+const handleHover = function (e, opacity) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link'); //finding closest parent element of the links we want, and then selecting its children.
+    const logo = link.closest('.nav').querySelector('img');
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+};
+
+//Passing "argument" into handler.
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+nav.addEventListener('mouseout', handleHover.bind(1)); //bind method will set 'this' keyword to the argument we pass in. allowing us to pass our function in to this parameter.
