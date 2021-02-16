@@ -50,6 +50,19 @@ document.addEventListener('keydown', function (e) {
 //     message.remove();
 //   });
 
+//Page navigation / Event Delegation
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  // console.log(e.target); //e.target allows us to determine what element originated the event.
+
+  //matching strategy
+  if (e.target.classList.contains('nav__link')) {
+    e.preventDefault();
+    const id = e.target.getAttribute('href');
+    console.log(id);
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 
