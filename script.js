@@ -1,5 +1,8 @@
 'use strict';
 
+const header = document.querySelector('.header');
+const footer = document.querySelector('.footer');
+const allSections = document.querySelectorAll('.section');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 const s1coords = section1.getBoundingClientRect();
@@ -37,7 +40,22 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-// //scrolling
+//scrolling
+//Sticky Navigation
+const navHeight = nav.getBoundingClientRect().height;
+
+const stickyNav = function (entries) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`,
+});
+headerObserver.observe(header);
 
 //////////////////////////////////////////////
 //Page Navigation
@@ -53,10 +71,6 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
 });
-
-const header = document.querySelector('.header');
-const footer = document.querySelector('.footer');
-const allSections = document.querySelectorAll('.section');
 
 document.getElementById('section--1');
 const allButtons = document.getElementsByTagName('button');
