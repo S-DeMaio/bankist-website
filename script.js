@@ -149,6 +149,7 @@ const loadImg = function (entries, observer) {
   observer.unobserve(entry.target);
 };
 
+//setting root to viewport and creating a 200px margin to let imgs load before user scrolls to them.
 const imgObserver = new IntersectionObserver(loadImg, {
   root: null,
   threshold: 0,
